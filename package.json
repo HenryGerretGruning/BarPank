@@ -1,0 +1,26 @@
+{
+  "name": "barpank",
+  "version": "1.0.0",
+  "description": "Barpank project",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryGerretGruning/BarPank.git"
+  },
+  "author": "Henry-Gerret Grüning",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenryGerretGruning/BarPank/issues"
+  },
+  "homepage": "https://github.com/HenryGerretGruning/BarPank#readme"
+}
