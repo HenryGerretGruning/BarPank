@@ -57,6 +57,57 @@ paths:
       operationId: createuser
       summary: Create a user
       description: Creates a new instance of a `user`.
+  /users/current:
+    get:
+      tags:
+        - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              examples:
+                GET /users/current response:
+                  value:
+                    accounts:
+                      -
+                        account_number: fgb2tqxwc0zx
+                        balance: 10000
+                        currency: EUR
+                        name: Main
+                        userId: 616564d768c0f084cd704a38
+                    name: Tere11
+                    username: Test
+          description: Successful request
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                Invalid authorization format:
+                  value:
+                    error: Invalid authorization format
+          description: bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples:
+                Missing authorization:
+                  value:
+                    error: Missing authorization
+                Invalid token:
+                  value:
+                    error: Invalid token
+          description: unauthorized
+      security:
+        -
+          Bearer: []
+      summary: Get active user data
+      description: Returns active `user`data
   /sessions:
     summary: Path used to manage the list of sessions.
     description: >-
@@ -75,6 +126,8 @@ paths:
                   username: anna
                   password: qwerty1234
         required: true
+      tags:
+        - sessions
       responses:
         '200':
           description: successful login
@@ -92,14 +145,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               examples:
-                invalid credentials:
+                Missing authorization:
                   value:
-                    error: invalid credentials
-          description: Invalid Token
+                    error: Missing authorization
+          description: unauthorized
       operationId: createsession
       summary: Create a session
       description: Creates a new instance of a `session`.
     delete:
+      tags:
+        - sessions
       responses:
         '204':
           description: Session successfully deleted
@@ -122,7 +177,13 @@ paths:
                 invalid token:
                   value:
                     error: invalid token
+                Missing authorization:
+                  value:
+                    error: Missing authorization
           description: invalid token
+      security:
+        -
+          Bearer: []
       description: "Deletes given `session` with an id specified in authorization header\r\n"
 components:
   schemas:
@@ -159,7 +220,14 @@ components:
           type: string
       example:
         token: 6162ea8470ba6a0cc3cabdbd
+  securitySchemes:
+    Bearer:
+      scheme: bearer
+      type: http
 tags:
   -
     name: users
+    description: ''
+  -
+    name: sessions
     description: ''
